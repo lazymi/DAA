@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<stdlib.h>
+void swap(int *a,int *b){
+    int t=*a;
+    *a=*b;
+    *b=t;
+}
+int divide(int a[],int l,int r){
+    int p=a[r];
+    int i=l-1;
+    int j;
+    for(j=l;j<r;j++){
+        if(a[j]<=p){
+            i++;
+            swap(&a[i],&a[j]);
+        }
+    }
+    swap(&a[i+1],&a[r]);
+    return (i+1);
+}
+void qksort(int a[],int l,int r){
+    if(l<r){
+     int p=divide(a,l,r);
+     qksort(a,l,p-1);
+     qksort(a,p+1,r);
+    }
+}
+int main(){
+    int a[20],n;
+    printf("enter array size");
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+        printf("\nenter element\t");
+        scanf("%d",&a[i]);
+    }
+    qksort(a,0,n-1);
+    for(int j=0;j<n;j++){
+        printf("\nsorted array is--%d",a[j]);
+    }
+    return 0;
+}
