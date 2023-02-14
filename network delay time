@@ -1,0 +1,40 @@
+#include<stdio.h>
+#include<stdlib.h>
+int networkDelayTime(int times[][3], int n, int k){
+int d[n+1],i,j,v,u,w;
+for(i=0;i<n;i++){
+    d[i]=9999;    
+}
+d[k-1]=0;
+for(i=0;i<n;i++){
+    for(j=0;j<3;j++){
+        u=times[j][0]-1;
+        v=times[j][1]-1;
+        w=times[j][2];
+        d[v]=fmin(d[v],d[u]+w);
+    }
+}
+
+int ans=0;
+for(i=0;i<n;i++){
+    if(d[i]==9999) return -1;
+    ans=fmax(ans,d[i]);
+}
+return ans;
+}
+int main(){
+    int i,j,n,k;
+    printf("enter number of node:");
+    scanf("%d",&n);
+    printf("enter src node:");
+    scanf("%d",&k);
+    int a[n][3];
+    for(i=0;i<n-1;i++){
+        for(j=0;j<3;j++){
+            printf("enter the elements");
+            scanf( "%d",&a[i][j]);
+        }
+    }
+    int ans=networkDelayTime(a,n,k);
+    printf("minmimum time taken is: %d",ans);
+}
