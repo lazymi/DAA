@@ -1,0 +1,53 @@
+#include <stdio.h>
+int maximumUnits(int boxTypes[][2], int boxTypesSize,int boxTypesColSize,int truckSize){
+    for(int i=0;i<boxTypesSize-1;i++){
+            for(int j=0;j<boxTypesSize-i-1;j++){
+                if(boxTypes[j][1]<boxTypes[j+1][1]){
+                    int first = boxTypes[j][0];
+                    int second = boxTypes[j][1];
+                    boxTypes[j][0] = boxTypes[j+1][0];
+                    boxTypes[j][1] = boxTypes[j+1][1];
+                    boxTypes[j+1][0] = first;
+                    boxTypes[j+1][1] = second;
+                }
+            }
+        }
+    int maxunits=0;
+    for (int i=0;i<boxTypesSize;i++)
+    {
+        if(truckSize>=boxTypes[i][0])
+        {
+            maxunits+=boxTypes[i][0]*boxTypes[i][1];
+            truckSize-=boxTypes[i][0];
+        }
+        else
+        {
+            maxunits+=truckSize*boxTypes[i][1];
+            truckSize=0;
+        }
+    }
+    return maxunits;
+
+}
+
+int main()
+{
+    
+     printf("enter no.of boxtypes");
+    int n;
+     scanf("%d",&n);
+    int a[n][2],t,i,j;
+     for(i=0;i<n;i++){
+         for(j=0;j<2;j++){
+            scanf("%d",&a[i][j]);
+         }
+     }
+    printf("enter trucksize");
+    scanf("%d",&t);
+    int b=maximumUnits(a,n,2,t);
+    printf("max units are:%d",b);
+
+    return 0;
+}
+
+
