@@ -1,0 +1,53 @@
+#include<stdio.h>
+#include<string.h>
+void reverse(char * s)
+{
+    // char *stack=malloc(sizeof(char)*strlen(s)),ch,*s2=malloc(sizeof(char)*(strlen(s)+1));
+    int n=strlen(s);
+    char stack[n],s2[n+1],ch;
+    int top=-1,k=0,m=0;
+    // int n=strlen(s);
+    for(int i=n-1;i>=0;i--)
+    {
+        ch=s[i];
+        if(ch==' ' && top!=-1)
+        {
+            while(top>=0)
+            {
+                s2[k]=stack[top];
+                k++;
+                top--;
+            }
+            s2[k++]=' ';
+        }
+        else if(ch!=' ')
+        {
+            stack[++top]=ch;
+        }
+    }
+    if(top!=-1)
+    {
+        while(top>=0)
+        {
+            s2[k]=stack[top];
+            k++;
+            top--;
+        }
+    }
+    if(s[0]==' ')
+    {
+        s2[k-1]='\0';
+    }
+    else
+    {
+        s2[k]='\0';
+    }
+    puts(s2);
+
+}
+int main()
+{
+    char str[]=" i  am a good example";
+    reverse(str);
+    return 0;
+}
